@@ -1,0 +1,29 @@
+----------------Rapport du Projet Système et Réseau---------------
+
+J'explique brièvement mes codes après mes implementations finales.
+    
+
+
+
+    Description des fonctionnalités mises en œuvre
+
+Le serveur implémenté offre les fonctionnalités suivantes :
+
+    Création d'un catalogue de comptines : Le serveur accepte un répertoire contenant des fichiers de comptines au format ".cpt" en tant que paramètre de ligne de commande. Il crée un catalogue de comptines à partir de ces fichiers, en extrayant les informations nécessaires (titre, nom du fichier, etc.) et les stocke dans une structure appropriée.
+
+    Configuration du socket d'écoute : Le serveur crée et configure un socket d'écoute TCP/IP sur le port spécifié (4321 dans cet exemple). Il utilise la fonction creer_configurer_sock_ecoute() pour effectuer cette tâche. Le serveur écoute ensuite les connexions entrantes des clients.
+
+    Traitement des clients concurrents : Le serveur est capable de traiter plusieurs clients simultanément grâce à l'utilisation de threads. Chaque client connecté est géré par un thread distinct, créé à l'aide de la fonction pthread_create(). Cela permet au serveur de recevoir des demandes de comptines de plusieurs clients en parallèle.
+
+    Envoi de la liste des comptines : Lorsqu'un client se connecte au serveur, le serveur envoie la liste des comptines disponibles dans le catalogue. Cette liste est envoyée au client en utilisant la fonction envoyer_liste(), qui parcourt le catalogue et envoie les informations de chaque comptine au client.
+
+    Réception du numéro de comptine demandé : Le serveur reçoit du client le numéro de comptine souhaité. Cette information est extraite du flux de données reçu en utilisant la fonction recevoir_num_comptine(). Le serveur vérifie ensuite si le numéro de comptine est valide.
+
+    Envoi de la comptine demandée : Si le numéro de comptine est valide, le serveur récupère le fichier correspondant au numéro de comptine à partir du répertoire spécifié lors du lancement du serveur. Le fichier est ensuite envoyé au client via la fonction envoyer_comptine() en utilisant des appels système pour lire le contenu du fichier et l'envoyer au client via le socket.
+
+    Gestion des erreurs : Le serveur gère les erreurs potentielles, telles que l'échec de création du socket, l'erreur lors de l'ouverture d'un fichier de comptine, l'acceptation de la connexion client, etc. Les erreurs sont affichées sur la sortie d'erreur standard pour faciliter le débogage.
+
+    Conclusion
+
+Le serveur implémenté utilisant le protocole WCP offre une interface simple et efficace pour les clients souhaitant obtenir des comptines à partir d'un répertoire spécifié. Il permet la gestion concurrente des clients grâce à l'utilisation de threads et offre des fonctionnalités robustes de gestion des erreurs.
+
